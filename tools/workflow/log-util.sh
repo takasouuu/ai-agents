@@ -21,6 +21,7 @@ init_logging() {
   export DATE_LOG="$(date +%Y-%m-%d)"
   export TIMESTAMP_LOG="$(date +%Y%m%d-%H%M%S)"
   export START_TIME_LOG=$(date +%s)
+  export START_ISO_LOG="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   
   # ログディレクトリ作成（ホスト名フォルダは削除、ユーザー名フォルダ直下）
   export LOG_BASE="$root_dir/.runtime/logs/$USERNAME_LOG/$DATE_LOG"
@@ -36,7 +37,7 @@ init_logging() {
   "stage": "$stage",
   "hostname": "$HOSTNAME_LOG",
   "username": "$USERNAME_LOG",
-  "timestamp_start": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "timestamp_start": "$START_ISO_LOG",
   "start_time": $START_TIME_LOG,
   "log_file": "$LOG_FILE",
   "prompt_log": "$PROMPT_LOG",
@@ -80,6 +81,24 @@ $prompt_text
 EOF
 }
 
+log_chat_context() {
+  local agent_name="$1"
+  local model_name="$2"
+  local prompt_text="$3"
+
+  cat >> "$PROMPT_LOG" <<EOF
+================================================================================
+Chat Context
+================================================================================
+Agent: $agent_name
+Model: $model_name
+Time: $(date '+%Y-%m-%d %H:%M:%S')
+PROMPT:
+$prompt_text
+
+EOF
+}
+
 # AI出力記録
 log_ai_output() {
   local agent_name="$1"
@@ -103,7 +122,7 @@ finalize_logging() {
   "stage": "$1",
   "hostname": "$HOSTNAME_LOG",
   "username": "$USERNAME_LOG",
-  "timestamp_start": "$(date -u -d @$START_TIME_LOG +%Y-%m-%dT%H:%M:%SZ)",
+  "timestamp_start": "$START_ISO_LOG",
   "timestamp_end": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
   "start_time": $START_TIME_LOG,
   "end_time": $end_time,
@@ -164,6 +183,7 @@ generate_team_report() {
 export -f log_message
 export -f log_prompt
 export -f log_ai_output
+export -f log_chat_context
 export -f init_logging
 export -f finalize_logging
 export -f generate_team_report

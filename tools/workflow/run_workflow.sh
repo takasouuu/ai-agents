@@ -4,61 +4,25 @@ set -euo pipefail
 STAGE="${1:-all}"
 ROOT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 
-# ホスト名とユーザー名を検出
-HOSTNAME="$(hostname)"
-USERNAME="${USER:-$(whoami)}"
-DATE="$(date +%Y-%m-%d)"
-TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
+source "$ROOT_DIR/tools/workflow/log-util.sh"
+init_logging "$STAGE" "$ROOT_DIR"
 
-# ログディレクトリ階層: .runtime/logs/{hostname}/{username}/{date}/
-LOG_BASE="$ROOT_DIR/.runtime/logs/$HOSTNAME/$USERNAME/$DATE"
-LOG_FILE="$LOG_BASE/workflow-${STAGE}-${TIMESTAMP}.log"
-METADATA_FILE="$LOG_BASE/workflow-${STAGE}-${TIMESTAMP}.metadata.json"
-PROMPT_LOG="$LOG_BASE/workflow-${STAGE}-${TIMESTAMP}.prompts.txt"
+log_message "workflow stage=$STAGE user=$USERNAME_LOG"
 
-mkdir -p "$LOG_BASE"
+if [[ -n "${COPILOT_AGENT:-}" || -n "${COPILOT_MODEL:-}" || -n "${COPILOT_PROMPT:-}" ]]; then
+  log_chat_context "${COPILOT_AGENT:-unknown-agent}" "${COPILOT_MODEL:-unknown-model}" "${COPILOT_PROMPT:-}"
+fi
 
-# メタデータファイルを作成
-cat > "$METADATA_FILE" <<EOF
-{
-  "stage": "$STAGE",
-  "hostname": "$HOSTNAME",
-  "username": "$USERNAME",
-  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-  "start_time": $(date +%s),
-  "log_file": "$LOG_FILE",
-  "prompt_log": "$PROMPT_LOG",
-  "working_directory": "$ROOT_DIR"
-}
-EOF
-
-log() {
-  local message="$1"
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $message" | tee -a "$LOG_FILE"
-}
-
-# プロンプトをログに記録する関数
-log_prompt() {
-  local agent="$1"
-  local prompt="$2"
-  cat >> "$PROMPT_LOG" <<EOF
-================================================================================
-$(date '+%Y-%m-%d %H:%M:%S') - Agent: $agent
-================================================================================
-$prompt
-
-EOF
-}
+if [[ -n "${COPILOT_OUTPUT:-}" ]]; then
+  log_ai_output "${COPILOT_AGENT:-unknown-agent}" "${COPILOT_OUTPUT}"
+fi
 
 run_stage() {
   local script="$1"
-  log "START: $script"
+  log_message "START: $script"
   bash "$ROOT_DIR/$script" 2>&1 | tee -a "$LOG_FILE"
-  log "DONE : $script"
+  log_message "DONE : $script"
 }
-
-START_TIME=$(date +%s)
-log "workflow stage=$STAGE user=$USERNAME host=$HOSTNAME"
 
 case "$STAGE" in
   basic-design)
@@ -94,4 +58,5 @@ case "$STAGE" in
     ;;
 esac
 
-log "workflow completed"
+log_message "workflow completed"
+finalize_logging "$STAGE" "$ROOT_DIR"

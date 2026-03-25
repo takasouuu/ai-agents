@@ -1,0 +1,23 @@
+[2026-03-26 06:17:10] workflow stage=basic-design user=takafumi
+[2026-03-26 06:17:10] START: tools/workflow/stages/10_basic_design.sh
+[basic-design] docs/design/basic を更新対象として確認
+[basic-design] question backlog: docs/redmine/question-backlog.md
+
+[template list] 基本設計テンプレート：
+01_project_overview.template.md
+02_scope_and_goals.template.md
+03_business_requirements.template.md
+04_system_context.template.md
+05_usecase_list.template.md
+06_screen_transition.template.md
+07_screen_definition.template.md
+08_api_external_spec.template.md
+09_batch_overview.template.md
+10_data_model_logical.template.md
+11_nonfunctional_requirements.template.md
+12_security_design.template.md
+13_error_handling_policy.template.md
+14_operations_monitoring.template.md
+15_acceptance_criteria.template.md
+[2026-03-26 06:17:10] DONE : tools/workflow/stages/10_basic_design.sh
+[2026-03-26 06:17:10] workflow completed

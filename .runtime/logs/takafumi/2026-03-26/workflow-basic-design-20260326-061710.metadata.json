@@ -1,0 +1,13 @@
+{
+  "stage": "basic-design",
+  "hostname": "TakafuminoMacBook-Air.local",
+  "username": "takafumi",
+  "timestamp_start": "2026-03-25T21:17:10Z",
+  "timestamp_end": "2026-03-25T21:17:10Z",
+  "start_time": 1774473430,
+  "end_time": 1774473430,
+  "duration_seconds": 0,
+  "log_file": "/Users/takafumi/projects/ai-agents/.runtime/logs/takafumi/2026-03-26/workflow-basic-design-20260326-061710.log",
+  "prompt_log": "/Users/takafumi/projects/ai-agents/.runtime/logs/takafumi/2026-03-26/workflow-basic-design-20260326-061710.prompts.txt",
+  "working_directory": "/Users/takafumi/projects/ai-agents"
+}
