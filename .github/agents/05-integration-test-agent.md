@@ -32,4 +32,19 @@
 - `docs/traceability/traceability_matrix.md`
 
 ## 呼び出し例
-`05-integration-test-agent.md に従って、内部結合テスト設計書を作成し、実施結果と既知課題を整理して`
+```
+05-integration-test-agent.md に従って、以下のテンプレートを参照しながら内部結合テストを実施してください：
+- 基本設計・詳細設計を確認
+- templates/tests/integration-design/ のテンプレートを参照
+- docs/tests/integration-design/ に内部結合テスト設計書を作成
+
+同時に以下を実施してください：
+- Playwright（UI自動テスト）またはカスタムスクリプトで下地統合テスト実施
+- 複数機能を跨ぐシナリオを検証
+  - Web 画面フロー
+  - API 呼び出し連携
+  - Batch 処理と DB 連携
+- テスト結果と発見不具合を docs/tests/integration-design/test-results.md に記録
+- 既知課題を docs/reviews/process-complete-review.md に明文化
+- docs/traceability/traceability_matrix.md で消し込み
+```

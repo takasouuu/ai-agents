@@ -30,4 +30,14 @@
 - `docs/traceability/traceability_matrix.md`
 
 ## 呼び出し例
-`01-basic-design-agent.md に従って、要件定義を元に基本設計15ファイルを作成し、不明点は question backlog に集約して`
+```
+01-basic-design-agent.md に従って、以下テンプレートを参照しながら基本設計15ファイルを作成してください：
+- templates/design/basic-md/01_project_overview.template.md
+- templates/design/basic-md/02_scope_and_goals.template.md
+- templates/design/basic-md/03_business_requirements.template.md
+- ...
+- templates/design/basic-md/15_acceptance_criteria.template.md
+
+作成後、不明点は docs/redmine/question-backlog.md に集約し、
+docs/traceability/traceability_matrix.md で消し込みを記録してください。
+```

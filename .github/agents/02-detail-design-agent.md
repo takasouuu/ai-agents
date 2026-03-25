@@ -31,4 +31,17 @@
 - `docs/traceability/traceability_matrix.md`
 
 ## 呼び出し例
-`02-detail-design-agent.md に従って、基本設計から詳細設計を作成し、HTML接続方針とDDL/DML生成前提を整理して`
+```
+02-detail-design-agent.md に従って、以下テンプレートを参照しながら詳細設計15ファイルを作成してください：
+- templates/design/detail-md/01_architecture_layers.template.md
+- templates/design/detail-md/02_directory_structure.template.md
+- templates/design/detail-md/03_php_coding_rules.template.md
+- ...
+- templates/design/detail-md/15_migration_release_detail.template.md
+
+同時に以下を整理してください：
+- HTML受領物（assets/html-received/）から作業コピー（assets/html-working/）へ展開
+- docs/interface/html-php-binding.md で PHP バインディング方針を記載
+- DDL/DML マクロの実行前提定義
+- docs/traceability/traceability_matrix.md で基本設計と対応付け
+```

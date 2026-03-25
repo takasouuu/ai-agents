@@ -31,4 +31,16 @@
 - `docs/traceability/traceability_matrix.md`
 
 ## 呼び出し例
-`04-unit-test-agent.md に従って、対象機能の単体テストと単体テスト設計書を更新し、テスト結果サマリも残して`
+```
+04-unit-test-agent.md に従って、以下のテンプレートを参照しながら単体テストを作成してください：
+- src/ の実装コードを確認
+- templates/tests/unit-design/ のテンプレートを参照
+- tests/ 配下にテストコードを作成（PHPUnit が推奨）
+
+同時に以下を実施してください：
+- docs/tests/unit-design/ に単体テスト設計書を作成
+- PHPUnit またはテストランナーで実行
+- テスト結果サマリを docs/tests/unit-design/test-results.md に記録
+- docs/ai-knowledge/metrics-history.md にカバレッジと欠陥指標を更新
+- docs/traceability/traceability_matrix.md でテスト対応を消し込み
+```
