@@ -1,0 +1,3 @@
+date,week,phase,team,member,task,priority,estimated_requests,actual_requests,rerun_count,unit_price_jpy,estimated_cost_jpy,actual_cost_jpy,notes
+2026-03-30,W01,kickoff,PM,PL,計画書初版作成,High,20,0,0,0,0,0,
+2026-03-31,W01,basic-design,Design,Architect,基本設計ドラフト生成,High,40,0,0,0,0,0,

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODOアプリ</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <h1>TODOアプリ</h1>
+      <form id="todo-form" class="todo-form">
+        <label for="todo-input" class="sr-only">TODOを入力</label>
+        <input id="todo-input" type="text" placeholder="やることを入力" maxlength="100" required />
+        <label for="due-input" class="sr-only">期限</label>
+        <input id="due-input" type="date" title="期限（任意）" />
+        <button type="submit">追加</button>
+      </form>
+
+      <div class="toolbar">
+        <div class="filters" role="group" aria-label="表示フィルタ">
+          <button type="button" class="filter-btn active" data-filter="all">全件</button>
+          <button type="button" class="filter-btn" data-filter="active">未完了</button>
+          <button type="button" class="filter-btn" data-filter="completed">完了</button>
+        </div>
+        <button type="button" id="clear-completed">完了済みを削除</button>
+      </div>
+
+      <ul id="todo-list" class="todo-list"></ul>
+      <p id="empty-message" class="empty-message">TODOがありません。追加してください。</p>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
