@@ -1,6 +1,0 @@
-[2026-03-26 05:28:34] workflow stage=basic-design
-[2026-03-26 05:28:34] START: tools/workflow/stages/10_basic_design.sh
-[basic-design] docs/design/basic を更新対象として確認
-[basic-design] question backlog: docs/redmine/question-backlog.md
-[2026-03-26 05:28:34] DONE : tools/workflow/stages/10_basic_design.sh
-[2026-03-26 05:28:34] workflow completed

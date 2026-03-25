@@ -3,15 +3,51 @@ set -euo pipefail
 
 STAGE="${1:-all}"
 ROOT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
-LOG_DIR="$ROOT_DIR/.runtime/logs"
-TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
-LOG_FILE="$LOG_DIR/workflow-${STAGE}-${TIMESTAMP}.log"
 
-mkdir -p "$LOG_DIR"
+# ホスト名とユーザー名を検出
+HOSTNAME="$(hostname)"
+USERNAME="${USER:-$(whoami)}"
+DATE="$(date +%Y-%m-%d)"
+TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
+
+# ログディレクトリ階層: .runtime/logs/{hostname}/{username}/{date}/
+LOG_BASE="$ROOT_DIR/.runtime/logs/$HOSTNAME/$USERNAME/$DATE"
+LOG_FILE="$LOG_BASE/workflow-${STAGE}-${TIMESTAMP}.log"
+METADATA_FILE="$LOG_BASE/workflow-${STAGE}-${TIMESTAMP}.metadata.json"
+PROMPT_LOG="$LOG_BASE/workflow-${STAGE}-${TIMESTAMP}.prompts.txt"
+
+mkdir -p "$LOG_BASE"
+
+# メタデータファイルを作成
+cat > "$METADATA_FILE" <<EOF
+{
+  "stage": "$STAGE",
+  "hostname": "$HOSTNAME",
+  "username": "$USERNAME",
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "start_time": $(date +%s),
+  "log_file": "$LOG_FILE",
+  "prompt_log": "$PROMPT_LOG",
+  "working_directory": "$ROOT_DIR"
+}
+EOF
 
 log() {
   local message="$1"
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $message" | tee -a "$LOG_FILE"
+}
+
+# プロンプトをログに記録する関数
+log_prompt() {
+  local agent="$1"
+  local prompt="$2"
+  cat >> "$PROMPT_LOG" <<EOF
+================================================================================
+$(date '+%Y-%m-%d %H:%M:%S') - Agent: $agent
+================================================================================
+$prompt
+
+EOF
 }
 
 run_stage() {
@@ -21,7 +57,8 @@ run_stage() {
   log "DONE : $script"
 }
 
-log "workflow stage=$STAGE"
+START_TIME=$(date +%s)
+log "workflow stage=$STAGE user=$USERNAME host=$HOSTNAME"
 
 case "$STAGE" in
   basic-design)
