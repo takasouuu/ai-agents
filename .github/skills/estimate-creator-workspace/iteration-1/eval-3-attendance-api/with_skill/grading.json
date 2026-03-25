@@ -1,0 +1,32 @@
+{
+  "eval_id": 3,
+  "eval_name": "eval-3-attendance-api",
+  "run": "with_skill",
+  "assertions": [
+    {
+      "text": "xlsx ファイルが出力ディレクトリに生成されている",
+      "passed": true,
+      "evidence": "estimate.xlsx が正常生成 (total_man_days: 5.5, total_amount: 420000)"
+    },
+    {
+      "text": "設計・バックエンド開発・テスト/QA・プロジェクト管理の4工程すべてが含まれている",
+      "passed": true,
+      "evidence": "4工程すべて含まれている (設計1MD, バックエンド3MD, テスト1MD, PM0.5MD)"
+    },
+    {
+      "text": "合計工数が 15 MD 以下のコンパクトな見積もりになっている",
+      "passed": true,
+      "evidence": "合計 5.5 MD (15MD 以下、「工数は少なめ」の指示に適切に対応)"
+    },
+    {
+      "text": "プロジェクト名が「勤怠管理 API 開発」になっている",
+      "passed": true,
+      "evidence": "プロジェクト名「勤怠管理 API 開発」を正しく設定"
+    },
+    {
+      "text": "テスト工数が全体の 30% 以下になっている",
+      "passed": true,
+      "evidence": "テスト 1.0MD / 合計 5.5MD = 18.2% < 30%"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "eval_id": 1,
+  "eval_name": "eval-1-task-management",
+  "prompt": "社内向けのタスク管理 Web アプリの見積もりを作ってほしいです。機能としては、ユーザー登録・ログイン、タスクの CRUD、チームメンバーへのタスク割り当て、期限アラートのメール通知、ダッシュボード（未完了タスク数・担当者別集計）の5つです。バックエンドは Python/FastAPI、DB は PostgreSQL を想定しています。クライアント名は「株式会社サンプル」で、プロジェクト名は「タスク管理システム開発」にしてください。",
+  "assertions": [
+    {
+      "name": "xlsx_file_created",
+      "description": "xlsx ファイルが出力ディレクトリに生成されている"
+    },
+    {
+      "name": "all_four_phases_present",
+      "description": "設計・バックエンド開発・テスト/QA・プロジェクト管理の4工程すべてが含まれている"
+    },
+    {
+      "name": "total_mandays_reasonable",
+      "description": "合計工数が 15〜50 MD の合理的な範囲内にある"
+    },
+    {
+      "name": "project_name_correct",
+      "description": "プロジェクト名が「タスク管理システム開発」になっている"
+    },
+    {
+      "name": "client_name_correct",
+      "description": "クライアント名が「株式会社サンプル」になっている"
+    }
+  ]
+}

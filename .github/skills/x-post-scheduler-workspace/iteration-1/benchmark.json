@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "skill_name": "x-post-scheduler",
+    "skill_path": "/Users/takafumi/projects/ai-agents/.github/skills/x-post-scheduler",
+    "timestamp": "2026-03-22T10:00:00Z",
+    "evals_run": ["daily-5posts", "investment-3styles", "weekly-schedule"],
+    "runs_per_configuration": 1
+  },
+
+  "runs": [
+    {
+      "eval_id": 1,
+      "eval_name": "daily-5posts",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "出力に5本の投稿文が含まれている", "passed": true, "evidence": "07:00, 12:00, 18:30, 21:00, 22:30 の5スロットに投稿文が1本ずつ生成されており、合計5本が確認できる。"},
+        {"text": "投資・ジム・AI開発の3カテゴリがすべて含まれている", "passed": true, "evidence": "ジム(07:00)、AI開発(12:00, 21:00)、投資(18:30, 22:30)の3カテゴリがすべて含まれている。"},
+        {"text": "時間帯（07:00, 12:00, 18:30などのスロット）が明示されている", "passed": true, "evidence": "各セクションの見出しに時刻が明示されている。"},
+        {"text": "各投稿文が140〜280文字の範囲に収まっている", "passed": true, "evidence": "全5投稿が140〜280文字の範囲内。"},
+        {"text": "schedule.json またはそれに相当するJSONが出力されている", "passed": true, "evidence": "schedule.json が5エントリの配列として生成されている。"},
+        {"text": "実体験・Tips・考察のうち複数スタイルが使われている", "passed": true, "evidence": "3スタイル全部が使用されている。"}
+      ],
+      "notes": "SKILL.mdの出力フォーマットをほぼ完全に遵守。全アサーションをクリア。"
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "daily-5posts",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "出力に5本の投稿文が含まれている", "passed": true, "evidence": "5スロットに投稿文が生成されている。"},
+        {"text": "投資・ジム・AI開発の3カテゴリがすべて含まれている", "passed": true, "evidence": "3カテゴリがすべて含まれている。"},
+        {"text": "時間帯（07:00, 12:00, 18:30などのスロット）が明示されている", "passed": true, "evidence": "時刻が見出しに明示されている。"},
+        {"text": "各投稿文が140〜280文字の範囲に収まっている", "passed": true, "evidence": "全5投稿が140〜280文字の範囲内。"},
+        {"text": "schedule.json またはそれに相当するJSONが出力されている", "passed": true, "evidence": "schedule.json が有効なJSON形式で生成されている。"},
+        {"text": "実体験・Tips・考察のうち複数スタイルが使われている", "passed": true, "evidence": "3スタイル全部が使用されている。"}
+      ],
+      "notes": "スキルなしでも高品質な出力。with_skillとの差異は少ない。"
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "investment-3styles",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "実体験・Tips・考察の3スタイルがすべて生成されている", "passed": true, "evidence": "3スタイルが見出しに明示され、それぞれ1本ずつ生成されている。"},
+        {"text": "3つの投稿が明確に異なるスタイル・構成になっている（単に短くしただけでない）", "passed": true, "evidence": "A=感情描写、B=✅リスト形式、C=逆説的問いかけ。構成・文体・情報量すべてで明確に異なる。"},
+        {"text": "3つすべてが「市場の暴落時の心理と行動」というテーマを扱っている", "passed": true, "evidence": "すべて暴落時の心理と行動が主題。"},
+        {"text": "各投稿文が140〜280文字の範囲に収まっている", "passed": true, "evidence": "全投稿が140〜280文字範囲内。"},
+        {"text": "Tips系の投稿がリスト・番号・チェックマークなどの構造化フォーマットを使っている", "passed": true, "evidence": "✅チェックマーク付きリスト形式を使用。"}
+      ],
+      "notes": "SKILL.mdのスタイル定義（A/B/C）に完全準拠。3スタイル比較表も含む充実レポート。"
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "investment-3styles",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "実体験・Tips・考察の3スタイルがすべて生成されている", "passed": true, "evidence": "3スタイルが見出しで明示されている。"},
+        {"text": "3つの投稿が明確に異なるスタイル・構成になっている（単に短くしただけでない）", "passed": true, "evidence": "A=感情描写、B=番号リスト、C=プロスペクト理論の考察。明確に異なる。"},
+        {"text": "3つすべてが「市場の暴落時の心理と行動」というテーマを扱っている", "passed": true, "evidence": "すべて暴落時の心理と行動が主題。"},
+        {"text": "各投稿文が140〜280文字の範囲に収まっている", "passed": true, "evidence": "A≈165字、B≈185字、C≈190字。すべて範囲内。"},
+        {"text": "Tips系の投稿がリスト・番号・チェックマークなどの構造化フォーマットを使っている", "passed": true, "evidence": "①②③番号付きリスト形式を採用。"}
+      ],
+      "notes": "スキルなしでも3スタイルを正確に識別・生成。投稿文の品質はwith_skillと同等。"
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "weekly-schedule",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "25本（5日×5本）の投稿が生成されている", "passed": true, "evidence": "schedule.jsonに25エントリ。合計25本確認済み。"},
+        {"text": "3カテゴリの出現数が均等またはほぼ均等（各カテゴリ7〜9本）", "passed": true, "evidence": "ジム9本、AI開発8本、投資8本。均等配分達成。"},
+        {"text": "schedule.json が valid な JSON 形式で出力されている", "passed": true, "evidence": "有効な配列形式のJSONで出力されている。"},
+        {"text": "schedule.json の scheduled_at が ISO 8601 UTC 形式（Z末尾）になっている", "passed": true, "evidence": "全エントリにscheduled_atがあり、Z末尾のISO 8601 UTC形式。"},
+        {"text": "1日の中で複数の時間帯（朝・昼・夜など）が使われている", "passed": true, "evidence": "07:00・12:00・18:30・21:00・22:30の5時間帯が毎日使用。"},
+        {"text": "月〜金の5日分すべてにわたって投稿が配置されている", "passed": true, "evidence": "3/22(月)〜3/26(金)の5日分が記載されている。"}
+      ],
+      "notes": "SKILL.mdフォーマットに完全準拠。JST→UTC変換も正確。非常に充実した出力。"
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "weekly-schedule",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.833,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "25本（5日×5本）の投稿が生成されている", "passed": true, "evidence": "25エントリが確認できる。"},
+        {"text": "3カテゴリの出現数が均等またはほぼ均等（各カテゴリ7〜9本）", "passed": true, "evidence": "投資9本、ジム8本、AI開発8本。均等配分達成。"},
+        {"text": "schedule.json が valid な JSON 形式で出力されている", "passed": true, "evidence": "有効なJSONだが構造がネスト形式（{schedule: {days: [...]}}）になっており仕様と異なる。"},
+        {"text": "schedule.json の scheduled_at が ISO 8601 UTC 形式（Z末尾）になっている", "passed": false, "evidence": "scheduled_atフィールドが存在せず、JSTのtimeフィールドのみ。post_to_x.py --batchコマンドをそのまま使用できない。"},
+        {"text": "1日の中で複数の時間帯（朝・昼・夜など）が使われている", "passed": true, "evidence": "07:00・09:30・12:00・18:00・21:00の5時間帯が使用されている。"},
+        {"text": "月〜金の5日分すべてにわたって投稿が配置されている", "passed": true, "evidence": "月〜金の5日分が配置されている。"}
+      ],
+      "notes": "schedule.jsonのscheduled_atフィールドが欠落しており、post_to_x.py --batchコマンドをそのまま実行できない。週次スケジュールのような複雑なケースでスキルの恩恵が明確に現れた。"
+    }
+  ],
+
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {"mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0},
+      "time_seconds": {"mean": null, "stddev": null, "min": null, "max": null},
+      "tokens": {"mean": null, "stddev": null, "min": null, "max": null}
+    },
+    "without_skill": {
+      "pass_rate": {"mean": 0.944, "stddev": 0.096, "min": 0.833, "max": 1.0},
+      "time_seconds": {"mean": null, "stddev": null, "min": null, "max": null},
+      "tokens": {"mean": null, "stddev": null, "min": null, "max": null}
+    },
+    "delta": {
+      "pass_rate": "+0.056",
+      "time_seconds": "N/A",
+      "tokens": "N/A"
+    }
+  },
+
+  "notes": [
+    "eval-1とeval-2ではwith_skillとwithout_skillで差が出ず：基本的な投稿生成・スタイル多様性は、スキルなしでも高品質に実現できる。",
+    "eval-3（週次スケジュール）でのみwithout_skillが失敗：schedule.jsonのscheduled_atフィールド（UTC ISO 8601）が欠落し、post_to_x.py --batchコマンドを直接使用できなかった。複雑な出力仕様ではスキルのガイドラインが有効に機能する。",
+    "非差別的なアサーション（文字数・3カテゴリ含む・スタイル多様性）はwith/without両方でほぼ満点：これらはClaudeが自然に満たせる基本品質。スキルの追加価値を見るなら、schedule.jsonのフォーマット仕様・時刻スロット設計・カテゴリ配置ルールなどの「意思決定ガイドライン」部分での差を見るべき。",
+    "スキルの主な貢献：①schedule.jsonのフォーマット統一（scheduled_at UTC形式）、②時刻スロット設計の一貫性（SKILL.mdの表に従う）、③出力フォーマット（見出し・カテゴリ・スタイルラベル）の統一。"
+  ]
+}

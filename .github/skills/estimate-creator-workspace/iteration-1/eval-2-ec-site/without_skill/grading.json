@@ -1,0 +1,32 @@
+{
+  "eval_id": 2,
+  "eval_name": "eval-2-ec-site",
+  "run": "without_skill",
+  "assertions": [
+    {
+      "text": "xlsx ファイルが出力ディレクトリに生成されている",
+      "passed": true,
+      "evidence": "estimate.xlsx が正常生成 (total_man_days: 56.0, total_amount: 4260000)"
+    },
+    {
+      "text": "設計・バックエンド開発・テスト/QA・プロジェクト管理の4工程すべてが含まれている",
+      "passed": true,
+      "evidence": "4工程すべて含まれている: 設計(10MD), バックエンド開発(30MD), テスト/QA(11MD), プロジェクト管理(5MD)"
+    },
+    {
+      "text": "決済機能に他の単純機能より多くの工数が割り当てられている",
+      "passed": true,
+      "evidence": "決済機能(5.0MD) > 商品詳細(2.0MD) 確認"
+    },
+    {
+      "text": "合計工数が 30〜100 MD の合理的な範囲内にある",
+      "passed": true,
+      "evidence": "合計 56.0 MD (範囲内だが、with_skill の 42.5MD より 32% 多い見積もり)"
+    },
+    {
+      "text": "プロジェクト名が EC サイトリニューアルになっている",
+      "passed": true,
+      "evidence": "プロジェクト名正しく設定された"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "eval_id": 2,
+  "eval_name": "eval-2-ec-site",
+  "prompt": "以下の機能一覧をもとに見積もり Excel を作成してください。\n\n【プロジェクト名】EC サイトリニューアル\n【クライアント】オンラインショップ株式会社\n\n## 機能一覧\n1. 商品カタログ表示（カテゴリ・検索・フィルタ）\n2. 商品詳細ページ\n3. カート機能\n4. 決済機能（クレジットカード連携）\n5. 注文履歴\n6. 会員登録・ログイン・パスワードリセット\n7. 管理画面（商品登録・在庫管理・注文管理）\n8. メールテンプレート管理",
+  "assertions": [
+    {
+      "name": "xlsx_file_created",
+      "description": "xlsx ファイルが出力ディレクトリに生成されている"
+    },
+    {
+      "name": "all_four_phases_present",
+      "description": "設計・バックエンド開発・テスト/QA・プロジェクト管理の4工程すべてが含まれている"
+    },
+    {
+      "name": "payment_feature_has_higher_mandays",
+      "description": "決済機能（複雑な外部連携）に他の単純機能より多くの工数が割り当てられている"
+    },
+    {
+      "name": "total_mandays_reasonable",
+      "description": "合計工数が 30〜100 MD の合理的な範囲内にある（8機能の EC サイト）"
+    },
+    {
+      "name": "project_name_correct",
+      "description": "プロジェクト名が「EC サイトリニューアル」になっている"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "title": "GitHub Copilot Agentモードを本気で使ってみた — subagent並列実行・SKILL.md 3段階ローディング・Excel自動生成まで",
+  "target_audience": "技術者向け（エージェント開発・生産性向上に興味がある）",
+  "tone": "等身大・体験談ベース・具体的な手順あり",
+  "tags": ["GitHubCopilot", "AIエージェント", "生産性向上", "SKILL.md", "Excel自動化"],
+  "key_topics": [
+    "GitHub Copilot Agentモードの概要と通常補完との違い",
+    "subagentを使ったタスク並列実行の仕組みと体験",
+    "SKILL.md 3段階ローディング構造の解説",
+    "estimate-creatorスキルでExcelを自動生成した体験"
+  ],
+  "experiment_date": "2026-03-22",
+  "highlights": [
+    "Agentモードでは複数のツール（read_file, grep_search, run_in_terminal 等）をLLMが自律的に組み合わせて実行する",
+    "subagentは独立したタスクを並列で処理できるため、通常の逐次実行より大幅に時間を短縮できる",
+    "SKILL.md はメタデータ（description）→ SKILL.md本文 → references/の3段階で読み込まれる",
+    "estimate-creatorスキルはJSONコンテキストを受け取りopenpyxlでExcelを自動生成する",
+    "スキルをトリガーするにはdescriptionに適切なキーワードを含めることが重要"
+  ],
+  "pain_points": [
+    "Agentモードは強力だが、ツール呼び出し回数が多いとコストがかかる",
+    "SKILL.md が読み込まれるかはdescriptionのキーワードマッチング精度に依存する",
+    "subagentへのコンテキスト渡しは設計を丁寧にしないと意図しない動作になる"
+  ],
+  "code_snippets": [
+    {
+      "label": "SKILL.mdのメタデータ部分（descriptionがトリガーになる）",
+      "lang": "yaml",
+      "code": "---\nname: estimate-creator\ndescription: ソフトウェア開発プロジェクトの工数・費用見積もり Excel ファイルを自動生成するスキル。見積もり書作成、工数見積もり、費用試算、開発コスト估算、プロジェクト見積もり、MD見積もり、人日計算などと言われたら必ずこのスキルを使うこと。\n---"
+    },
+    {
+      "label": "generate_article.py の実行例",
+      "lang": "bash",
+      "code": "python scripts/generate_article.py \\\n  --context article_context.json \\\n  --output article_draft.md"
+    }
+  ]
+}

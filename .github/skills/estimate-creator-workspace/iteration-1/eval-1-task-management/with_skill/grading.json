@@ -1,0 +1,32 @@
+{
+  "eval_id": 1,
+  "eval_name": "eval-1-task-management",
+  "run": "with_skill",
+  "assertions": [
+    {
+      "text": "xlsx ファイルが出力ディレクトリに生成されている",
+      "passed": true,
+      "evidence": "estimate.xlsx が出力先に生成され、スクリプトは正常終了 (total_man_days: 23.0, total_amount: 1750000)"
+    },
+    {
+      "text": "設計・バックエンド開発・テスト/QA・プロジェクト管理の4工程すべてが含まれている",
+      "passed": true,
+      "evidence": "phases: [設計, バックエンド開発, テスト / QA, プロジェクト管理] の4工程すべて確認"
+    },
+    {
+      "text": "合計工数が 15〜50 MD の合理的な範囲内にある",
+      "passed": true,
+      "evidence": "合計 23.0 MD (範囲 15-50 内)"
+    },
+    {
+      "text": "プロジェクト名が「タスク管理システム開発」になっている",
+      "passed": true,
+      "evidence": "JSON データとスクリプト呼び出しでプロジェクト名「タスク管理システム開発」を確認"
+    },
+    {
+      "text": "クライアント名が「株式会社サンプル」になっている",
+      "passed": true,
+      "evidence": "JSON データでクライアント名「株式会社サンプル」を確認"
+    }
+  ]
+}

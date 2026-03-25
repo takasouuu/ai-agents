@@ -1,0 +1,44 @@
+{
+  "eval_name": "eval-1-copilot-agent",
+  "variant": "without_skill",
+  "pass_rate": 0.857,
+  "passed": 6,
+  "total": 7,
+  "expectations": [
+    {
+      "text": "記事の冒頭に「この記事でわかること」セクションがある",
+      "passed": false,
+      "evidence": "FAIL - has_summary_section"
+    },
+    {
+      "text": "コードブロック（```）が1つ以上ある",
+      "passed": true,
+      "evidence": "PASS - has_code_blocks"
+    },
+    {
+      "text": "subagentまたは並列実行についての説明がある",
+      "passed": true,
+      "evidence": "PASS - covers_subagent"
+    },
+    {
+      "text": "SKILL.mdまたは3段階ローディングについての説明がある",
+      "passed": true,
+      "evidence": "PASS - covers_skill_md"
+    },
+    {
+      "text": "estimate-creatorまたはExcel自動生成についての説明がある",
+      "passed": true,
+      "evidence": "PASS - covers_estimate_creator"
+    },
+    {
+      "text": "まとめまたは結論セクションがある",
+      "passed": true,
+      "evidence": "PASS - has_conclusion"
+    },
+    {
+      "text": "記事が1000文字以上ある",
+      "passed": true,
+      "evidence": "PASS - article_length_sufficient"
+    }
+  ]
+}

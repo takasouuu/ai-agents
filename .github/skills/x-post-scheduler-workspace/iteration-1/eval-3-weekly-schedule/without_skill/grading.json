@@ -1,0 +1,37 @@
+{
+  "run_id": "eval-3-without_skill",
+  "expectations": [
+    {
+      "text": "25本（5日×5本）の投稿が生成されている",
+      "passed": true,
+      "evidence": "posts.mdに「1日5投稿 × 5日 = 計25投稿」と明示。カテゴリ別まとめに「合計: 25」と記載。schedule.jsonにも5日×5投稿=25エントリが含まれている。"
+    },
+    {
+      "text": "3カテゴリの出現数が均等またはほぼ均等（各カテゴリ7〜9本）",
+      "passed": true,
+      "evidence": "posts.mdのカテゴリ別まとめより：投資系9本、ジムトレーニング8本、AI開発8本。すべて7〜9本の範囲内に収まっており均等配分が達成されている。"
+    },
+    {
+      "text": "schedule.json が valid な JSON 形式で出力されている",
+      "passed": true,
+      "evidence": "schedule.jsonは{\"schedule\": {\"week_start\":..., \"days\":[...]}}というネスト構造の有効なJSONとして出力されている。SKILL.mdの推奨フォーマット（フラット配列）とは異なる構造だが、JSONとしての有効性は満たしている。"
+    },
+    {
+      "text": "schedule.json の scheduled_at が ISO 8601 UTC 形式（Z末尾）になっている",
+      "passed": false,
+      "evidence": "without_skillのschedule.jsonの各投稿エントリは{\"id\":..., \"time\":\"07:00\", \"category\":..., \"content\":...}の形式で、\"scheduled_at\"フィールドが存在しない。時刻は\"time\"フィールドにJST表記（\"07:00\"等）のみで記載されており、ISO 8601 UTC形式（Z末尾）の予約時刻フィールドが欠落している。"
+    },
+    {
+      "text": "1日の中で複数の時間帯（朝・昼・夜など）が使われている",
+      "passed": true,
+      "evidence": "1日あたり07:00（朝）、09:30（朝後半）、12:00（昼）、18:00（夕方）、21:00（夜）の5つの時間帯が使われており、朝・昼・夜にわたって分散されている。"
+    },
+    {
+      "text": "月〜金の5日分すべてにわたって投稿が配置されている",
+      "passed": true,
+      "evidence": "posts.mdとschedule.jsonに3月22日（月）・23日（火）・24日（水）・25日（木）・26日（金）の5日分が記載されており、各日5投稿が確認できる。"
+    }
+  ],
+  "pass_rate": 0.83,
+  "notes": "25本の生成・3カテゴリ均等配分・5日間カバーは達成。しかしschedule.jsonのフォーマットがSKILL.mdの仕様から逸脱しており、予約投稿に必須のscheduled_at（ISO 8601 UTC）フィールドが存在しない。時刻はJST表記の\"time\"フィールドのみで、実際のX APIへの予約投稿コマンドをそのまま実行できない構造になっている。"
+}

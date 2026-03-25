@@ -1,0 +1,27 @@
+{
+  "eval_id": 3,
+  "eval_name": "eval-3-attendance-api",
+  "prompt": "小規模な社内 REST API の見積もりを頼みたいです。既存の Excel テンプレートはないんですが、以下の内容でお願いします。\n\nプロジェクト名: 勤怠管理 API 開発\nお客様: 人事部\n\n工数は少なめで、エンドポイントはこの3つだけです:\n- 出退勤の打刻 (POST /attendance)\n- 月次の勤怠集計取得 (GET /attendance/summary)\n- 有給申請 (POST /leave-request)\n\n開発は Node.js/Express で行います。テストは簡単なもので十分です。",
+  "assertions": [
+    {
+      "name": "xlsx_file_created",
+      "description": "xlsx ファイルが出力ディレクトリに生成されている"
+    },
+    {
+      "name": "all_four_phases_present",
+      "description": "設計・バックエンド開発・テスト/QA・プロジェクト管理の4工程すべてが含まれている"
+    },
+    {
+      "name": "small_scale_estimate",
+      "description": "合計工数が 15 MD 以下のコンパクトな見積もりになっている（3エンドポイントのみ）"
+    },
+    {
+      "name": "project_name_correct",
+      "description": "プロジェクト名が「勤怠管理 API 開発」になっている"
+    },
+    {
+      "name": "light_testing_proportion",
+      "description": "テスト工数が全体の 30% 以下（「テストは簡単なもので十分」という指示に従っている）"
+    }
+  ]
+}

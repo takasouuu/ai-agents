@@ -1,0 +1,13 @@
+{
+  "eval_id": 3,
+  "eval_name": "eval-3-weekly-summary",
+  "prompt": "今週試したAI開発の実験まとめをnoteに投稿したい。GitHub Copilot、subagent、skill-creatorを使ったことを体験談スタイルでまとめて。投稿前にレビューしたいので先に記事を見せてから下書きに保存して。",
+  "assertions": [
+    {"id": "personal_voice", "description": "体験談スタイル（一人称・感情表現・失敗談など）で書かれている"},
+    {"id": "covers_three_topics", "description": "GitHub Copilot・subagent・skill-creatorの3テーマ全てに言及している"},
+    {"id": "has_review_checklist", "description": "レビューチェックリストファイル（review_checklist.md）が生成されている"},
+    {"id": "has_summary_section", "description": "記事の冒頭に『この記事でわかること』またはそれに相当する導入がある"},
+    {"id": "dry_run_mentioned", "description": "下書き保存前のレビューやdry-runへの言及がある"},
+    {"id": "article_length_sufficient", "description": "記事が800文字以上ある"}
+  ]
+}

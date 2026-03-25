@@ -1,0 +1,41 @@
+{
+  "skill_name": "estimate-creator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "社内向けのタスク管理 Web アプリの見積もりを作ってほしいです。機能としては、ユーザー登録・ログイン、タスクの CRUD、チームメンバーへのタスク割り当て、期限アラートのメール通知、ダッシュボード（未完了タスク数・担当者別集計）の5つです。バックエンドは Python/FastAPI、DB は PostgreSQL を想定しています。クライアント名は「株式会社サンプル」で、プロジェクト名は「タスク管理システム開発」にしてください。",
+      "expected_output": "プロジェクト名「タスク管理システム開発」、クライアント「株式会社サンプル」の Excel 見積もりファイルが生成される。設計・バックエンド開発・テスト/QA・プロジェクト管理の4工程に分けられ、各機能に工数(MD)が割り当てられている。合計工数と合計金額が正しく計算されている。",
+      "assertions": [
+        {"name": "xlsx_file_created", "description": "xlsx ファイルが出力ディレクトリに生成されている"},
+        {"name": "all_four_phases_present", "description": "設計・バックエンド開発・テスト/QA・プロジェクト管理の4工程すべてが含まれている"},
+        {"name": "total_mandays_reasonable", "description": "合計工数が 15〜50 MD の合理的な範囲内にある"},
+        {"name": "project_name_correct", "description": "プロジェクト名が「タスク管理システム開発」になっている"},
+        {"name": "client_name_correct", "description": "クライアント名が「株式会社サンプル」になっている"}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "以下の機能一覧をもとに見積もり Excel を作成してください。\n\n【プロジェクト名】EC サイトリニューアル\n【クライアント】オンラインショップ株式会社\n\n## 機能一覧\n1. 商品カタログ表示（カテゴリ・検索・フィルタ）\n2. 商品詳細ページ\n3. カート機能\n4. 決済機能（クレジットカード連携）\n5. 注文履歴\n6. 会員登録・ログイン・パスワードリセット\n7. 管理画面（商品登録・在庫管理・注文管理）\n8. メールテンプレート管理",
+      "expected_output": "「EC サイトリニューアル」の Excel 見積もりが生成される。8機能を設計/バックエンド開発/テスト/PMに適切に分解し工数を割り当て。決済連携など複雑な機能には多めの工数が割り当てられている。",
+      "assertions": [
+        {"name": "xlsx_file_created", "description": "xlsx ファイルが出力ディレクトリに生成されている"},
+        {"name": "all_four_phases_present", "description": "設計・バックエンド開発・テスト/QA・プロジェクト管理の4工程すべてが含まれている"},
+        {"name": "payment_feature_higher_mandays", "description": "決済機能に他の単純機能より多くの工数が割り当てられている"},
+        {"name": "total_mandays_reasonable", "description": "合計工数が 30〜100 MD の合理的な範囲内にある"},
+        {"name": "project_name_correct", "description": "プロジェクト名が EC サイトリニューアルになっている"}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "小規模な社内 REST API の見積もりを頼みたいです。既存の Excel テンプレートはないんですが、以下の内容でお願いします。\n\nプロジェクト名: 勤怠管理 API 開発\nお客様: 人事部\n\n工数は少なめで、エンドポイントはこの3つだけです:\n- 出退勤の打刻 (POST /attendance)\n- 月次の勤怠集計取得 (GET /attendance/summary)\n- 有給申請 (POST /leave-request)\n\n開発は Node.js/Express で行います。テストは簡単なもので十分です。",
+      "expected_output": "シンプルな3エンドポイントの API 見積もり。全体工数は比較的少なく（15 MD 以下程度）、テストも軽め。4工程それぞれに合理的な工数が割り当てられている。",
+      "assertions": [
+        {"name": "xlsx_file_created", "description": "xlsx ファイルが出力ディレクトリに生成されている"},
+        {"name": "all_four_phases_present", "description": "設計・バックエンド開発・テスト/QA・プロジェクト管理の4工程すべてが含まれている"},
+        {"name": "small_scale_estimate", "description": "合計工数が 15 MD 以下のコンパクトな見積もりになっている"},
+        {"name": "project_name_correct", "description": "プロジェクト名が勤怠管理 API 開発になっている"},
+        {"name": "light_testing_proportion", "description": "テスト工数が全体の 30% 以下になっている"}
+      ]
+    }
+  ]
+}

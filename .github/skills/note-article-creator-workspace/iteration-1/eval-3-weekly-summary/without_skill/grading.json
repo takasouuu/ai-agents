@@ -1,0 +1,39 @@
+{
+  "eval_name": "eval-3-weekly-summary",
+  "variant": "without_skill",
+  "pass_rate": 0.667,
+  "passed": 4,
+  "total": 6,
+  "expectations": [
+    {
+      "text": "体験談スタイル（一人称・感情表現・失敗談など）で書かれている",
+      "passed": true,
+      "evidence": "PASS - personal_voice"
+    },
+    {
+      "text": "GitHub Copilot・subagent・skill-creatorの3テーマ全てに言及している",
+      "passed": true,
+      "evidence": "PASS - covers_three_topics"
+    },
+    {
+      "text": "レビューチェックリストファイル（review_checklist.md）が生成されている",
+      "passed": true,
+      "evidence": "PASS - has_review_checklist"
+    },
+    {
+      "text": "記事の冒頭に「この記事でわかること」またはそれに相当する導入がある",
+      "passed": false,
+      "evidence": "FAIL - has_summary_section"
+    },
+    {
+      "text": "下書き保存前のレビューやdry-runへの言及がある",
+      "passed": false,
+      "evidence": "FAIL - dry_run_mentioned"
+    },
+    {
+      "text": "記事が800文字以上ある",
+      "passed": true,
+      "evidence": "PASS - article_length_sufficient"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "eval_id": 3,
+  "eval_name": "weekly-schedule",
+  "prompt": "今週1週間（月〜金）の投稿スケジュールを作ってほしい。1日5投稿で、3カテゴリのバランスを均等にして。schedule.jsonで出力して。",
+  "assertions": [
+    {
+      "id": "total_post_count",
+      "description": "25本（5日×5本）の投稿が生成されている",
+      "type": "manual"
+    },
+    {
+      "id": "category_balance",
+      "description": "3カテゴリの出現数が均等またはほぼ均等（各カテゴリ7〜9本）",
+      "type": "manual"
+    },
+    {
+      "id": "schedule_json_valid",
+      "description": "schedule.json が valid な JSON 形式で出力されている",
+      "type": "manual"
+    },
+    {
+      "id": "scheduled_at_utc",
+      "description": "schedule.json の scheduled_at が ISO 8601 UTC 形式（Z末尾）になっている",
+      "type": "manual"
+    },
+    {
+      "id": "time_slots_varied",
+      "description": "1日の中で複数の時間帯（朝・昼・夜など）が使われている",
+      "type": "manual"
+    },
+    {
+      "id": "five_days_covered",
+      "description": "月〜金の5日分すべてにわたって投稿が配置されている",
+      "type": "manual"
+    }
+  ]
+}
