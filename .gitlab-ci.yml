@@ -1,0 +1,28 @@
+stages:
+  - lint
+  - test
+  - quality
+  - security
+  - docs
+
+doc_convert_preview:
+  stage: docs
+  script:
+    - python tools/doc-gen/run.py --mode preview
+  only:
+    - merge_requests
+
+ui_smoke_test:
+  stage: test
+  script:
+    - echo "Run Playwright smoke tests"
+
+quality_gate:
+  stage: quality
+  script:
+    - echo "Run SonarQube quality gate"
+
+security_gate:
+  stage: security
+  script:
+    - echo "Run CxSAST / BlackDuck / AppScan jobs"

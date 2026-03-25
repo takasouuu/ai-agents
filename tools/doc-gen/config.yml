@@ -1,0 +1,10 @@
+version: 1
+source_root: docs
+output_root: build
+rules:
+  - from: docs/design/basic
+    to: build/word/basic
+    format: docx
+  - from: docs/design/detail
+    to: build/word/detail
+    format: docx
