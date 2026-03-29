@@ -1,0 +1,128 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Workflow: Basic Design (01-agent)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "rm -rf .runtime/logs && COPILOT_AGENT='01-basic-design-agent' COPILOT_MODEL='GPT-5.3-Codex' COPILOT_PROMPT=\"${input:basicPrompt}\" COPILOT_OUTPUT='基本設計15ファイル作成完了（GUI実行）' bash tools/workflow/run_workflow.sh basic-design"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Workflow: All Stages (orchestrator)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "COPILOT_AGENT='orchestrator' COPILOT_MODEL='GPT-5.3-Codex' COPILOT_PROMPT=\"${input:allPrompt}\" COPILOT_OUTPUT='全工程実行完了（GUI実行）' bash tools/workflow/run_workflow.sh all"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Workflow: Run Any Stage (multi-agent)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "COPILOT_AGENT='${input:agentName}' COPILOT_MODEL='GPT-5.3-Codex' COPILOT_PROMPT=\"${input:anyPrompt}\" COPILOT_OUTPUT='${input:anyOutput}' bash tools/workflow/run_workflow.sh ${input:stageName}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Workflow: Tail Latest Logs",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "tail -f .runtime/logs/workflow-*.log"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "basicPrompt",
+      "type": "promptString",
+      "description": "基本設計用プロンプト",
+      "default": "01-basic-design-agent.md に従って、要件定義書を入力に基本設計15ファイルを docs/design/basic に作成してください。未確定事項は docs/redmine/question-backlog.md に集約し、docs/traceability/traceability_matrix.md で要件IDトレースを更新してください。"
+    },
+    {
+      "id": "allPrompt",
+      "type": "promptString",
+      "description": "全工程用プロンプト",
+      "default": "00〜60の工程ステージを順に実行し、各ステージで成果物とトレーサビリティを更新してください。"
+    },
+    {
+      "id": "stageName",
+      "type": "pickString",
+      "description": "実行ステージを選択",
+      "options": [
+        "basic-design",
+        "detail-design",
+        "implement",
+        "unit-test",
+        "integration-test",
+        "release-prep",
+        "all"
+      ],
+      "default": "basic-design"
+    },
+    {
+      "id": "agentName",
+      "type": "promptString",
+      "description": "エージェント名（例: 01-basic-design-agent）",
+      "default": "01-basic-design-agent"
+    },
+    {
+      "id": "anyPrompt",
+      "type": "promptString",
+      "description": "任意ステージ用プロンプト",
+      "default": "該当ステージのエージェント定義に従って成果物を更新してください。"
+    },
+    {
+      "id": "anyOutput",
+      "type": "promptString",
+      "description": "実行ログに残すAI出力概要",
+      "default": "ステージ更新完了（GUI実行）"
+    }
+  ]
+}
