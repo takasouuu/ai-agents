@@ -1,46 +1,72 @@
 # 08 API External Spec
 
-## API 一覧（REQ-005, REQ-007, REQ-008, REQ-009, REQ-010に対応）
+## API一覧
 
-### Workflow 実行（REQ-005）
-- POST /api/workflow/execute
-  - Request: { agent_name, workflow, input }
-  - Response: { workflow_id, status, created_at, eta_sec }
-  - Error: 400, 401, 503
+| API | Method | 用途 | 対応要件 |
+|-----|--------|------|----------|
+| /api/posts | GET | 投稿一覧取得 | REQ-008, REQ-009 |
+| /api/posts/{id} | GET | 投稿候補詳細取得 | REQ-005 |
+| /api/posts/{id} | PUT | 投稿候補更新 | REQ-005 |
+| /api/posts/{id}/reserve | POST | 予約投稿確定 | REQ-004 |
+| /api/posts/{id}/publish | POST | 即時投稿実行 | REQ-006 |
+| /api/posts/{id}/cancel | POST | 予約キャンセル | REQ-007 |
+| /api/histories/operations | GET | 操作履歴取得 | REQ-014 |
+| /api/histories/publications | GET | 投稿履歴取得 | REQ-015 |
 
-### Workflow 状態取得（REQ-006）
-- GET /api/workflow/{id}/status
-  - Response: { workflow_id, status, progress, logs_url, updated_at }
-  - Status: QUEUED / RUNNING / SUCCESS / FAILED / CANCELED
+## 主要API仕様
 
-### 要件 CRUD（REQ-004）
-- GET /api/requirements/list (filter, limit, offset)
-- GET /api/requirements/{id}
-- PUT /api/requirements/{id} (content, priority)
-- Response: { id, content, priority, status, created_at, updated_at }
+### 1. 投稿一覧取得
+- Method: GET
+- Path: /api/posts
+- Query: status, scheduled_from, scheduled_to, source_type
+- Response:
+  - posts[]: id, status, scheduled_at, source_type, content_summary, updated_at
 
-### トレーサビリティ（REQ-008）
-- GET /api/traceability/matrix
-  - Response: [ { requirement_id, design_id, impl_id, test_id, status } ]
+### 2. 投稿候補更新
+- Method: PUT
+- Path: /api/posts/{id}
+- Request:
+  - content
+  - scheduled_at
+  - note
+- Response:
+  - id, status, content, scheduled_at, updated_at
 
-### レビュー API（REQ-009）
-- POST /api/reviews/create
-  - Request: { artifact_type, artifact_id, review_type, findings }
-- PUT /api/reviews/{id}/resolve
-  - Request: { finding_id, status, resolution }
+### 3. 予約投稿確定
+- Method: POST
+- Path: /api/posts/{id}/reserve
+- Request:
+  - scheduled_at
+- Response:
+  - id, status=reserved, reserved_at
 
-### Redmine 同期（REQ-007）
-- POST /api/redmine/sync
-  - Trigger: 毎工程完了後
-  - Action: WBS更新、Triage log記録
+### 4. 即時投稿
+- Method: POST
+- Path: /api/posts/{id}/publish
+- Request:
+  - force_publish=true
+- Response:
+  - id, status=published, published_at, external_reference
 
-## エラー仕様
-| Code | 説明 | クライアント処理 |
-|------|------|---------|
-| 400 | Bad Request | リクエスト再確認 |
-| 401 | Unauthorized | トークンリフレッシュ |
-| 403 | Forbidden | 管理者に連絡 |
-| 409 | Conflict | Retry (exponential backoff) |
-| 500 | Internal Error | ログ送信、サポート連絡 |
-| 503 | Unavailable | Client-side retry |
+### 5. 予約キャンセル
+- Method: POST
+- Path: /api/posts/{id}/cancel
+- Request:
+  - reason
+- Response:
+  - id, status=canceled, canceled_at
+
+## 外部連携仕様
+- 投稿実行時はSNS投稿アダプタを経由して送信する。
+- 情報収集系IFはバッチから呼び出し、APIには候補生成済みデータのみ連携する。
+
+## エラーコード
+| Code | 意味 | 処理 |
+|------|------|------|
+| 400 | 入力不正 | 入力項目を再確認させる |
+| 404 | 対象なし | 一覧へ戻して再検索させる |
+| 409 | 状態競合 | 最新状態を再取得させる |
+| 422 | 業務エラー | 予約時刻不正などを表示する |
+| 500 | システムエラー | ログ採番し運用へ通知する |
+| 503 | 外部連携失敗 | 再試行または手動対応へ誘導する |
 

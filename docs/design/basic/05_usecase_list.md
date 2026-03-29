@@ -1,36 +1,33 @@
 # 05 Usecase List
 
-## Web ユースケース
+## Webユースケース
 
-| UC No | ユースケース名 | 要件ID | 完全性 | 優先度 |
-|--------|---------------|--------|--------|--------|
-| UC-W01 | プロジェクト基本情報をエディタで作成・更新 | REQ-004 | 〇 | M |
-| UC-W02 | 基本設計15ファイルをテンプレートから展開 | REQ-004 | 〇 | M |
-| UC-W03 | 実装コードをGitHubからPull・レビュー | REQ-005 | 〇 | M |
-| UC-W04 | レビュー指摘を採番・追跡・マークアップ | REQ-009 | 〇 | M |
-| UC-W05 | トレーサビリティマトリックスを閲覧・検索 | REQ-008 | ◎ | M |
-| UC-W06 | 工程進捗・品質メトリクスをダッシュボード表示 | REQ-002 | ◎ | L |
-| UC-W07 | ログ・実行履歴を検索・フィルタ | REQ-006 | 〇 | L |
+| UC ID | ユースケース名 | 概要 | 対応要件 |
+|-------|----------------|------|----------|
+| UC-W01 | 投稿一覧を確認する | 投稿予定日時、投稿状態、候補種別を一覧表示する | REQ-008, REQ-009, REQ-010 |
+| UC-W02 | 投稿候補を編集する | 候補本文、投稿予定日時、補足メモを修正する | REQ-005, REQ-011 |
+| UC-W03 | 投稿内容を確認する | 投稿前に最終確認し、予約または即時投稿を選択する | REQ-004, REQ-006, REQ-012 |
+| UC-W04 | 投稿予約をキャンセルする | 予約済み投稿をキャンセル状態へ変更する | REQ-007, REQ-010 |
+| UC-W05 | 操作履歴・投稿履歴を参照する | 操作の追跡と投稿結果の確認を行う | REQ-014, REQ-015 |
 
-## API ユースケース
+## APIユースケース
 
-| UC No | API エンドポイント | メソッド | 要件ID | 目的 |
-|--------|------------------|----------|--------|------|
-| UC-A01 | /api/workflow/execute | POST | REQ-005 | ワークフロー実行開始 |
-| UC-A02 | /api/workflow/{id}/status | GET | REQ-006 | ワークフロー実行状態取得 |
-| UC-A03 | /api/requirements/list | GET | REQ-004 | 要件一覧取得 |
-| UC-A04 | /api/requirements/{id} | GET/PUT | REQ-004 | 要件詳細取得・更新 |
-| UC-A05 | /api/traceability/matrix | GET | REQ-008 | トレーサビリティ参照 |
-| UC-A06 | /api/reviews/create | POST | REQ-009 | レビュー指摘登録 |
-| UC-A07 | /api/reviews/{id}/resolve | PUT | REQ-009 | レビュー指摘解決 |
-| UC-A08 | /api/redmine/sync | POST | REQ-007 | Redmine同期 |
+| UC ID | API | 概要 | 対応要件 |
+|-------|-----|------|----------|
+| UC-A01 | GET /api/posts | 投稿一覧を取得する | REQ-008, REQ-009 |
+| UC-A02 | GET /api/posts/{id} | 投稿候補詳細を取得する | REQ-005 |
+| UC-A03 | PUT /api/posts/{id} | 投稿候補を更新する | REQ-005 |
+| UC-A04 | POST /api/posts/{id}/reserve | 予約投稿を確定する | REQ-004 |
+| UC-A05 | POST /api/posts/{id}/publish | 即時投稿を実行する | REQ-006 |
+| UC-A06 | POST /api/posts/{id}/cancel | 予約をキャンセルする | REQ-007 |
+| UC-A07 | GET /api/histories/operations | 操作履歴を取得する | REQ-014 |
+| UC-A08 | GET /api/histories/publications | 投稿履歴を取得する | REQ-015 |
 
-## バッチ処理
+## バッチユースケース
 
-| Batch No | 名称 | 実行タイミング | 入力 | 出力 | 要件ID |
-|----------|------|--------------|------|------|--------|
-| BATCH-01 | ログアーカイブ | 日次 23:00 | .runtime/logs/ | 圧縮ファイル → S3 | REQ-006 |
-| BATCH-02 | Redmine WBS同期 | 毎回工程完了時 | Redmine API | docs/redmine/triage-log.md | REQ-007 |
-| BATCH-03 | トレーサビリティ更新 | 毎ステップ完了時 | 成果物ファイル群 | docs/traceability/matrix.md | REQ-008 |
-| BATCH-04 | 品質ゲート判定 | テスト完了後 | SonarQube/CxSAST/AppScan | docs/reviews/process-complete-review.md | REQ-010 |
-| BATCH-05 | 週次報告生成 | 毎週金曜 16:00 | metrics-history.md, risk-register.md | docs/pm/weekly-report/weekly-YYYY-WW.md | REQ-013 |
+| UC ID | バッチ名 | 概要 | 対応要件 |
+|-------|----------|------|----------|
+| UC-B01 | 外部情報収集バッチ | ニュース・イベント・指標を収集して候補材料を保存する | REQ-002 |
+| UC-B02 | アノマリー生成バッチ | アノマリー定義ルールに従い投稿候補を生成する | REQ-003 |
+| UC-B03 | 予約投稿実行バッチ | 投稿予定時刻に到達した予約を送信する | REQ-004, REQ-013 |
+| UC-B04 | 投稿結果反映バッチ | 外部投稿結果を履歴に反映する | REQ-015 |

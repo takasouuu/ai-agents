@@ -1,0 +1,13 @@
+{
+  "stage": "all",
+  "hostname": "TakafuminoMacBook-Air.local",
+  "username": "takafumi",
+  "timestamp_start": "2026-03-29T10:46:16Z",
+  "timestamp_end": "2026-03-29T10:46:17Z",
+  "start_time": 1774781176,
+  "end_time": 1774781177,
+  "duration_seconds": 1,
+  "log_file": "/Users/takafumi/projects/ai-agents/.runtime/logs/takafumi/2026-03-29/workflow-all-20260329-194616.log",
+  "prompt_log": "/Users/takafumi/projects/ai-agents/.runtime/logs/takafumi/2026-03-29/workflow-all-20260329-194616.prompts.txt",
+  "working_directory": "/Users/takafumi/projects/ai-agents"
+}

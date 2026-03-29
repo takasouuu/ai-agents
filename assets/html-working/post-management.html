@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>投稿管理（Working）</title>
+</head>
+<body>
+  <h1>投稿管理</h1>
+  <form id="search-form">
+    <label>状態<input name="status_filter" /></label>
+    <label>開始<input name="scheduled_from" /></label>
+    <label>終了<input name="scheduled_to" /></label>
+  </form>
+
+  <form id="edit-form">
+    <input type="hidden" name="post_id" value="1" />
+    <label>本文<textarea name="content"></textarea></label>
+    <label>予約日時<input name="scheduled_at" /></label>
+    <label>メモ<textarea name="note"></textarea></label>
+  </form>
+
+  <form id="confirm-form">
+    <label>公開モード<input name="publish_mode" /></label>
+    <label>予約時刻<input name="reserve_at" /></label>
+    <label>キャンセル理由<input name="cancel_reason" /></label>
+  </form>
+</body>
+</html>
